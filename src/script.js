@@ -1,33 +1,60 @@
-const habitName = document.querySelector(".habit-name");
-const containerEl = document.querySelector(".checkbox-container");
+const containerEl = document.querySelector(".container");
+const wrapperEl = document.querySelector(".wrapper");
 
-const habit = {
+
+const habit1 = {
         name: "Exercise",
         days: [false, false, false, false, false, false,false]
 };
 
+const habit2 = {
+        name: "Drink Water",
+        days: [false, false, false, false, false, false,false]
+};
 
-habitName.textContent = habit.name;
+const habit3 = {
+        name: "Meditation",
+        days: [false, false, false, false, false, false, false]
+};
 
-const days = habit.days;
-console.log(days);
+const habit4 = {
+        name: "Morning pages",
+        days: [false, false, false, false, false, false, false]
+};
 
-days.forEach((day, index) => {
-    const dayEl = document.createElement("input");
-    dayEl.type = "checkbox";
-    dayEl.dataset.dayIndex = index;
+const habits = [habit1, habit2, habit3, habit4];
 
-    containerEl.appendChild(dayEl);
 
-    dayEl.addEventListener("change", function(e) {
-        let dayIndex = e.target.dataset.dayIndex;
-        days[dayIndex] = !days[dayIndex];
+habits.forEach(habit => {
+    const wrapperEl = document.createElement("div");
+    const nameEl = document.createElement("p");
 
-    console.log(days)
+    wrapperEl.appendChild(nameEl);
+    containerEl.appendChild(wrapperEl);
 
+    nameEl.textContent = habit.name;
+
+    const days = habit.days;
+    // console.log(days)
+
+    days.forEach((day, index) => {
+        const dayCheckboxEl = document.createElement("input");
+        dayCheckboxEl.type = "checkbox";
+        dayCheckboxEl.dataset.dayIndex = index;
+
+        wrapperEl.appendChild(dayCheckboxEl);
+
+        dayCheckboxEl.addEventListener("change", function(e){
+            let dayIndex = e.target.dataset.dayIndex;
+            days[dayIndex] = !days[dayIndex];
+
+            console.log(days)
+
+        })
     })
 
-});
+
+})
 
 
 
