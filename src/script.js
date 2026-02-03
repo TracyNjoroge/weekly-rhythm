@@ -1,28 +1,26 @@
 const containerEl = document.querySelector(".container");
-const wrapperEl = document.querySelector(".wrapper");
 
-
-const habit1 = {
+const habits = [
+    {
         name: "Exercise",
         days: [false, false, false, false, false, false,false]
-};
+    },
 
-const habit2 = {
+    {
         name: "Drink Water",
         days: [false, false, false, false, false, false,false]
-};
+    },
 
-const habit3 = {
+    {
         name: "Meditation",
         days: [false, false, false, false, false, false, false]
-};
+    },
 
-const habit4 = {
+    {
         name: "Morning pages",
         days: [false, false, false, false, false, false, false]
-};
-
-const habits = [habit1, habit2, habit3, habit4];
+    }
+]
 
 
 habits.forEach(habit => {
