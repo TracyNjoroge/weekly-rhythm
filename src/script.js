@@ -1,4 +1,7 @@
 const containerEl = document.querySelector(".container");
+const habitEl = document.querySelector(".add-habit");
+const buttonEl = document.querySelector("#submitBtn");
+const inputEl = document.querySelector("#habitInput");
 
 const habits = [
     {
@@ -7,23 +10,13 @@ const habits = [
     },
 
     {
-        name: "Drink Water",
-        days: [false, false, false, false, false, false,false]
-    },
-
-    {
-        name: "Meditation",
-        days: [false, false, false, false, false, false, false]
-    },
-
-    {
         name: "Morning pages",
         days: [false, false, false, false, false, false, false]
     }
-]
+];
 
-
-habits.forEach(habit => {
+const renderHabits = () => {
+    habits.forEach(habit => {
     const wrapperEl = document.createElement("div");
     const nameEl = document.createElement("p");
 
@@ -35,24 +28,43 @@ habits.forEach(habit => {
     const days = habit.days;
     // console.log(days)
 
-    days.forEach((day, index) => {
-        const dayCheckboxEl = document.createElement("input");
-        dayCheckboxEl.type = "checkbox";
-        dayCheckboxEl.dataset.dayIndex = index;
+        days.forEach((day, index) => {
+            const dayCheckboxEl = document.createElement("input");
+            dayCheckboxEl.type = "checkbox";
+            dayCheckboxEl.dataset.dayIndex = index;
 
-        wrapperEl.appendChild(dayCheckboxEl);
+            wrapperEl.appendChild(dayCheckboxEl);
 
-        dayCheckboxEl.addEventListener("change", function(e){
-            let dayIndex = e.target.dataset.dayIndex;
-            days[dayIndex] = !days[dayIndex];
+            dayCheckboxEl.addEventListener("change", function(e){
+                let dayIndex = e.target.dataset.dayIndex;
+                days[dayIndex] = !days[dayIndex];
 
-            console.log(days)
+                console.log(days)
 
+            });
         })
-    })
+    });
+}
 
 
+buttonEl.addEventListener("click", function() {
+    const newHabit = inputEl.value;
+    if (newHabit === "") return;
+
+    habits.push({
+        name: newHabit,
+        days: [false, false, false, false, false, false, false]
+    });
+
+    inputEl.value = "";
+    containerEl.replaceChildren();
+    renderHabits();
 })
+
+renderHabits();
+
+
+
 
 
 
