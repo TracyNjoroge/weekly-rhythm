@@ -3,22 +3,27 @@ const habitEl = document.querySelector(".add-habit");
 const buttonEl = document.querySelector("#submitBtn");
 const inputEl = document.querySelector("#habitInput");
 
-const habits = [
-    {
-        name: "Exercise",
-        days: [false, false, false, false, false, false,false]
-    },
+const habits = [];
 
-    {
-        name: "Morning pages",
-        days: [false, false, false, false, false, false, false]
-    }
-];
+const deleteHabit = (e) => {
+    let habitIndex = Number(e.target.parentElement.dataset.habitIndex);
+
+    habits.splice(habitIndex, 1);
+    containerEl.replaceChildren();
+    renderHabits();
+
+}
 
 const renderHabits = () => {
-    habits.forEach(habit => {
+    habits.forEach((habit, index) => {
     const wrapperEl = document.createElement("div");
     const nameEl = document.createElement("p");
+    const deleteBtn = document.createElement("button");
+
+    wrapperEl.dataset.habitIndex = index; 
+
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("delete-btn")
 
     wrapperEl.appendChild(nameEl);
     containerEl.appendChild(wrapperEl);
@@ -30,10 +35,12 @@ const renderHabits = () => {
 
         days.forEach((day, index) => {
             const dayCheckboxEl = document.createElement("input");
+
             dayCheckboxEl.type = "checkbox";
             dayCheckboxEl.dataset.dayIndex = index;
 
             wrapperEl.appendChild(dayCheckboxEl);
+
 
             dayCheckboxEl.addEventListener("change", function(e){
                 let dayIndex = e.target.dataset.dayIndex;
@@ -43,6 +50,11 @@ const renderHabits = () => {
 
             });
         })
+
+    wrapperEl.appendChild(deleteBtn);
+
+    deleteBtn.addEventListener("click", deleteHabit)
+
     });
 }
 
@@ -62,7 +74,6 @@ buttonEl.addEventListener("click", function() {
 })
 
 renderHabits();
-
 
 
 
