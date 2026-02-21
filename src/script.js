@@ -3,12 +3,24 @@ const habitEl = document.querySelector(".add-habit");
 const buttonEl = document.querySelector("#submitBtn");
 const inputEl = document.querySelector("#habitInput");
 
-const habits = [];
+const habits = [
+    {
+        name: "Exercise",
+        days: [false, false, false, false, false, false,false]
+    },
+
+    {
+        name: "Morning pages",
+        days: [false, false, false, false, false, false, false]
+    }
+];
 
 const deleteHabit = (e) => {
     let habitIndex = Number(e.target.parentElement.dataset.habitIndex);
 
-    habits.splice(habitIndex, 1);
+    const habitToRemove = habitIndex;
+
+    habits.splice(habitToRemove, 1);
     containerEl.replaceChildren();
     renderHabits();
 
@@ -16,44 +28,44 @@ const deleteHabit = (e) => {
 
 const renderHabits = () => {
     habits.forEach((habit, index) => {
-    const wrapperEl = document.createElement("div");
-    const nameEl = document.createElement("p");
-    const deleteBtn = document.createElement("button");
+        const wrapperEl = document.createElement("div");
+        const nameEl = document.createElement("p");
+        const deleteBtn = document.createElement("button");
 
-    wrapperEl.dataset.habitIndex = index; 
+        wrapperEl.dataset.habitIndex = index; 
 
-    deleteBtn.textContent = "Delete";
-    deleteBtn.classList.add("delete-btn")
+        deleteBtn.textContent = "Delete";
+        deleteBtn.classList.add("delete-btn")
 
-    wrapperEl.appendChild(nameEl);
-    containerEl.appendChild(wrapperEl);
+        wrapperEl.appendChild(nameEl);
+        containerEl.appendChild(wrapperEl);
 
-    nameEl.textContent = habit.name;
+        nameEl.textContent = habit.name;
 
-    const days = habit.days;
-    // console.log(days)
+        const days = habit.days;
+        // console.log(days)
 
-        days.forEach((day, index) => {
-            const dayCheckboxEl = document.createElement("input");
+            days.forEach((day, index) => {
+                const dayCheckboxEl = document.createElement("input");
 
-            dayCheckboxEl.type = "checkbox";
-            dayCheckboxEl.dataset.dayIndex = index;
+                dayCheckboxEl.type = "checkbox";
+                dayCheckboxEl.dataset.dayIndex = index;
 
-            wrapperEl.appendChild(dayCheckboxEl);
+                wrapperEl.appendChild(dayCheckboxEl);
 
 
-            dayCheckboxEl.addEventListener("change", function(e){
-                let dayIndex = e.target.dataset.dayIndex;
-                days[dayIndex] = !days[dayIndex];
+                dayCheckboxEl.addEventListener("change", function(e){
+                    let dayIndex = e.target.dataset.dayIndex;
+                    days[dayIndex] = !days[dayIndex];
 
-                console.log(days)
+                    console.log(days);
 
-            });
-        })
+                });
+            })
 
-    wrapperEl.appendChild(deleteBtn);
+        wrapperEl.appendChild(deleteBtn);
 
-    deleteBtn.addEventListener("click", deleteHabit)
+        deleteBtn.addEventListener("click", deleteHabit)
 
     });
 }
